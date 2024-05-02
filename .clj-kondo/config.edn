@@ -1,0 +1,6 @@
+{:skip-comments true
+ :linters {:single-key-in {:level :warning}
+           :shadowed-var {:level :warning}
+           :missing-docstring {:level :warning}
+           :refer-all {:exclude [clojure.test]}
+           :consistent-alias {:aliases {clojure.string str}}}}

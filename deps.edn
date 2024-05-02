@@ -1,0 +1,56 @@
+{:deps {org.clojure/clojure {:mvn/version "1.11.3"}
+        ; Logging
+        org.clojure/tools.logging {:mvn/version "1.2.4"}
+        ch.qos.logback/logback-classic {:mvn/version "1.4.5"}
+        ; System & Config
+        integrant/integrant {:mvn/version "0.8.1"}
+        aero/aero {:mvn/version "1.1.6"}
+        ; Server
+        metosin/reitit {:mvn/version "0.7.0-alpha7"}
+        ring/ring-jetty-adapter {:mvn/version "1.12.1"}
+        amalloy/ring-gzip-middleware {:mvn/version "0.1.4"}
+        ; db
+        org.postgresql/postgresql {:mvn/version "42.7.3"}
+        hikari-cp/hikari-cp {:mvn/version "3.0.1"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.925"}
+        com.github.seancorfield/honeysql {:mvn/version "2.6.1126"}
+        net.clojars.abogoyavlensky/automigrate {:mvn/version "0.3.3"}}
+
+ :paths ["src/clj" "src/cljc" "resources"]
+
+ :aliases {:dev {:extra-paths ["dev"]
+                 :extra-deps {; auto-reloading clj-files on changes
+                              ring/ring-devel {:mvn/version "1.12.1"}
+                              integrant/repl {:mvn/version "0.3.3"}
+                              day8.re-frame/tracing {:mvn/version "0.6.2"}
+                              day8.re-frame/re-frame-10x {:mvn/version "1.9.9"}}}
+
+           :cljs {:extra-paths ["src/cljs"]
+                  :extra-deps {org.clojure/clojurescript {:mvn/version "1.11.132"}
+                               metosin/reitit-frontend {:mvn/version "0.7.0-alpha7"}
+                               re-frame/re-frame {:mvn/version "1.4.3"}
+                               reagent/reagent {:mvn/version "1.2.0"
+                                                :exclusions [cljsjs.react-dom/cljsjs.react-dom]}
+                               day8.re-frame/http-fx {:mvn/version "0.2.4"}
+                               cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}}}
+
+           :shadow {:extra-deps {thheller/shadow-cljs {:mvn/version "2.28.4"}}
+                    :main-opts ["-m" "shadow.cljs.devtools.cli"]}
+
+           :test {:extra-paths ["test/clj" "test/cljs"]
+                  :extra-deps {eftest/eftest {:mvn/version "0.6.0"}
+                               cloverage/cloverage {:mvn/version "1.2.4"}
+                               circleci/bond {:mvn/version "0.6.0"}}
+                  :exec-fn cloverage.coverage/run-project
+                  :exec-args {:test-ns-path ["test"]
+                              :src-ns-path ["src"]
+                              :runner :eftest
+                              :runner-opts {:multithread? :namespaces}}}
+
+           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.8.1194"}}
+                      :main-opts ["-m" "antq.core" "--no-diff"]}
+
+           :migrations {:ns-default automigrate.core}
+
+           :build {:deps {io.github.clojure/tools.build {:git/tag "v0.10.0" :git/sha "3a2c484"}}
+                   :ns-default build}}}

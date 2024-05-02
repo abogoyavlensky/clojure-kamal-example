@@ -1,0 +1,8 @@
+task 3.34.1
+java temurin-21.0.2+13.0.LTS
+clojure 1.11.3.1456
+node 16.16.0
+cljstyle 0.16.626
+clj-kondo 2024.03.13
+lefthook 1.6.10
+ruby 3.3.0

@@ -1,0 +1,112 @@
+version: '3'
+
+vars:
+  DIRS: src test
+
+dotenv: ['.env.local']
+
+# TODO: make as less tasks as possible
+
+tasks:
+  deps:
+    desc: Install all dev deps
+    cmds:
+      - clojure -P -X:dev:test:outdated:shadow:cljs
+
+  test:
+    desc: Run tests
+    cmds:
+      - clojure -X:dev:test
+
+  #  Formatting cmds
+  fmt-check:
+    desc: Check code formatting
+    cmds:
+      - cljstyle check --report {{ .DIRS }}
+
+  fmt:
+    desc: Fix code formatting
+    cmds:
+      - cljstyle fix --report {{ .DIRS }}
+
+  #  Linting cmds
+  lint-init:
+    desc: Linting project's classpath
+    cmds:
+      - clj-kondo --parallel --dependencies --copy-configs --lint {{ .DIRS }}
+    vars:
+      DIRS:
+        sh: clojure -Spath
+
+  lint:
+    desc: Linting project's code
+    cmds:
+      - clj-kondo --parallel --lint {{ .DIRS }}
+
+  # All code checks
+  check:
+    desc: Check linting and apply formatting locally
+    cmds:
+      - task: fmt
+      - task: lint
+
+  # Check deps versions
+  outdated-check:
+    desc: outdated  # Check outdated deps versions
+    cmds:
+      - clojure -M:outdated {{ .CLI_ARGS }}
+
+  # Upgrade deps versions
+  outdated:
+    desc: Upgrade outdated Clojure deps versions
+    cmds:
+      - task: outdated-check
+        vars: { CLI_ARGS: '--upgrade --force' }
+
+  # Frontend commands
+  shadow:
+    desc: Run shadow-cljs commands to build frontend
+    cmds:
+      - clojure -M:dev:cljs:shadow {{ .CLI_ARGS }}
+
+  js-watch:
+    desc: Run shadow-cljs commands to build frontend in watch mode
+    cmds:
+      - task: shadow
+        vars: { CLI_ARGS: 'watch app'}
+
+#  TODO: remove!
+  css:
+    desc: Build css
+    cmds:
+      - npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output.css {{ .CLI_ARGS }}
+
+  css-prod:
+    desc: Build css
+    cmds:
+      - npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output-prod.css --minify
+
+  css-watch:
+    desc: Build css in watch mode
+    cmds:
+      - task: css
+        vars: { CLI_ARGS: '--watch'}
+
+  # Local compose commands
+  up:
+    desc: Run local deps for development
+    cmds:
+      - docker compose up -d db-local db-test
+
+  migrations:
+    desc: Manage db migrations
+    cmds:
+      - clojure -X:migrations {{ .CLI_ARGS }}
+
+  build:
+    desc: Build jar
+    cmds:
+      - npm i
+      - task: shadow
+        vars: { CLI_ARGS: 'release app' }
+      - clojure -T:build build

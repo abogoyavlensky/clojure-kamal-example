@@ -1,0 +1,9 @@
+.git
+.cpcache
+target
+node_modules
+.shadow-cljs
+.idea
+.lsp
+.env
+.env.local

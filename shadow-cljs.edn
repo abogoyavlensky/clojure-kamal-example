@@ -1,0 +1,24 @@
+{:deps {:aliases [:dev :cljs :shadow]}
+ :builds {:app {:target :browser
+                :output-dir "resources/public/js"
+                :asset-path "/assets/js"
+                :module-hash-names true
+                :modules {:main {:init-fn front.main/init!}}
+                :devtools {:watch-dir "resources/public"
+                           :watch-path "/assets"
+                           :after-load front.main/render!
+                           :preloads [day8.re-frame-10x.preload.react-18]}
+                :dev {:compiler-options {:closure-defines
+                                         {re-frame.trace.trace-enabled? true
+                                          day8.re-frame.tracing.trace-enabled? true}}}
+
+                :release {:build-hooks [; Build css and update file name in index.html with hash
+                                        (api.util.build/build-css
+                                          ; TODO: move tailwind command outside
+                                          {:build-cmd  "npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output-prod.css --minify"
+                                           :output-file-path "resources/public/css/output-prod.css"
+                                           :file-name-in-html "output.css"})
+                                        ; Update js file name in index.html with hash
+                                        (shadow.html/copy-file
+                                          "resources/public/index.html"
+                                          "resources/public/index.html")]}}}}

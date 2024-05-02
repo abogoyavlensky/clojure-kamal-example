@@ -1,0 +1,9 @@
+{:rules
+ {:whitespace {:remove-surrounding? true
+               :remove-trailing? true
+               :insert-missing? true}
+  :eof-newline {:enabled? true}
+  :functions {:enabled? true}
+  :vars {:enabled? false}
+  :namespaces {:enabled? false}
+  :comments {:enabled? false}}}

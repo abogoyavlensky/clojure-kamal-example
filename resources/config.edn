@@ -1,0 +1,14 @@
+{:api.db/db {:options {:jdbc-url #env DATABASE_URL
+                       :minimum-pool-size 3
+                       :maximum-pool-size 15}}
+
+ :api.handler/handler {:options {:reloaded? #profile {:default false
+                                                      :dev true}
+                                 :cache-assets? #profile {:default true
+                                                          :dev false}}
+                       :db #ig/ref :api.db/db}
+
+ :api.server/server {:options {:join? false
+                               :port #profile {:default 80
+                                               :dev 8000}}
+                     :handler #ig/ref :api.handler/handler}}
