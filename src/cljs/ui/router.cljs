@@ -11,11 +11,9 @@
   ["/"
    [""
     {:name ::home
-     :view views/home-page}]])
-     ; TODO: uncomment!
-     ;:controllers [{:start
-     ;               (fn [& _]
-     ;                 (re-frame/dispatch [::budgets-events/get-movies-list]))}]}]])
+     :view views/home-page
+     :controllers [{:start (fn [& _]
+                             (re-frame/dispatch [::events/get-movies-list]))}]}]])
 
 
 (def router

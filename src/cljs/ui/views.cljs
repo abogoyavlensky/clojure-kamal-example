@@ -14,4 +14,9 @@
 (defn home-page
   "Render home page."
   [_]
-  [:h1 "Movies"])
+  (let [movies @(re-frame/subscribe [::subs/movies-list-items])]
+    [:div
+     [:h1 "Movies"]
+     (for [item movies]
+       ^{:key (:id item)} [:ul
+                           [:li (:title item)]])]))
