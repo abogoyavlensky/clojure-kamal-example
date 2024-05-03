@@ -18,6 +18,9 @@ lsp/
 .DS_Store
 .portal/
 node_modules
+resources/public/css/output*
+resources/public/assets/*
+resources/public/js
 .shadow-cljs/
 .env
 .env.local

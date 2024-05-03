@@ -3,10 +3,10 @@
                 :output-dir "resources/public/js"
                 :asset-path "/assets/js"
                 :module-hash-names true
-                :modules {:main {:init-fn front.main/init!}}
+                :modules {:main {:init-fn ui.main/init!}}
                 :devtools {:watch-dir "resources/public"
                            :watch-path "/assets"
-                           :after-load front.main/render!
+                           :after-load ui.main/render!
                            :preloads [day8.re-frame-10x.preload.react-18]}
                 :dev {:compiler-options {:closure-defines
                                          {re-frame.trace.trace-enabled? true
