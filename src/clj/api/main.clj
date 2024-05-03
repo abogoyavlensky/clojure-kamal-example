@@ -5,6 +5,7 @@
             [automigrate.core :as automigrate]
             [api.util.system :as util-system]))
 
+
 (defn- run-system
   [profile]
   (let [profile-name-kw profile
@@ -15,6 +16,7 @@
         (ig/init)
         (util-system/at-shutdown))
     (log/info "[SYSTEM] System has been started successfully.")))
+
 
 (defn -main
   "Run application system in production env."

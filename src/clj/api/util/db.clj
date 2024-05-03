@@ -5,6 +5,7 @@
             ; Import for converting timestamp fields
             [next.jdbc.date-time]))
 
+
 (defn exec!
   "Send query to db and return vector of result items."
   [db query]

@@ -28,7 +28,8 @@
       (assoc db :current-route new-route*))))
 
 
-(re-frame/reg-fx :fx/push-state
+(re-frame/reg-fx
+  :fx/push-state
   (fn [{:keys [route]}]
     (reitit-easy/push-state route)))
 

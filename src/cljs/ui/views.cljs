@@ -3,6 +3,7 @@
             [ui.subs :as subs]
             [ui.router :as-alias ui-router]))
 
+
 (defn router-component
   "Component for routing ui navigation."
   [{:keys [router]}]
@@ -10,6 +11,7 @@
         view (-> current-route :data :view)]
     [view {:router router
            :current-route current-route}]))
+
 
 (defn home-page
   "Render home page."

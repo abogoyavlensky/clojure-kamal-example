@@ -4,6 +4,7 @@
             [reitit.frontend :as reitit-front]
             [common.api-routes :as api-routes]))
 
+
 (def api-router
   "Fake router of backend api for using in frontend."
   (reitit-front/router

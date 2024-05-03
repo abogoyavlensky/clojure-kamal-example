@@ -6,7 +6,7 @@
   "Return all movies."
   [db]
   (util-db/exec! db
-    {:select [:m.id :m.title :m.year [:d.name :director]]
-     :from [[:movie :m]]
-     :join [[:director :d] [:= :d.id :m.director-id]]
-     :order-by [[:m.year :desc]]}))
+                 {:select [:m.id :m.title :m.year [:d.name :director]]
+                  :from [[:movie :m]]
+                  :join [[:director :d] [:= :d.id :m.director-id]]
+                  :order-by [[:m.year :desc]]}))

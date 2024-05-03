@@ -15,8 +15,8 @@
    (letfn [(index-handler-fn
              [_request]
              (-> index-file
-               (response/resource-response {:root root})
-               (response/content-type "text/html")))]
+                 (response/resource-response {:root root})
+                 (response/content-type "text/html")))]
      (fn
        ([request]
         (index-handler-fn request))
@@ -37,7 +37,7 @@
    (resource-response-cached path {}))
   ([path options]
    (-> (response/resource-response path options)
-     (cache-control))))
+       (cache-control))))
 
 
 (defn create-resource-handler-cached
@@ -47,8 +47,8 @@
                       resource-response-cached
                       response/resource-response)]
     (-> response-fn
-      (ring/-create-file-or-resource-handler opts)
-      (gzip/wrap-gzip))))
+        (ring/-create-file-or-resource-handler opts)
+        (gzip/wrap-gzip))))
 
 
 (defn get-route
@@ -57,5 +57,5 @@
    (get-route router route-name {}))
   ([router route-name {:keys [path query]}]
    (-> router
-     (reitit/match-by-name route-name path)
-     (reitit/match->path query))))
+       (reitit/match-by-name route-name path)
+       (reitit/match->path query))))

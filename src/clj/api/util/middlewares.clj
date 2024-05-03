@@ -6,8 +6,8 @@
   [handler context]
   (fn [request]
     (-> request
-      (assoc :context context)
-      (handler))))
+        (assoc :context context)
+        (handler))))
 
 
 (defn reloading-ring-handler
