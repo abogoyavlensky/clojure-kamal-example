@@ -1,4 +1,5 @@
-(ns common.api-routes)
+(ns common.api-routes
+  (:require #?(:clj [api.movies.handlers :as movies-handlers])))
   ;(:require #?(:cljs [reitit.core :as reitit])
   ;          #?(:cljs [reitit.coercion.spec :as reitit-spec])
   ;          #?(:cljs [reitit.frontend :as reitit-front])))
@@ -10,13 +11,13 @@
   ["/api"
    ["/v1"
     ["/movies" {:name ::movies
-                :get {:responses {200 {:body {:id pos-int?
-                                              :title string?
-                                              :year string?}}}}}]]])
-                      ; TODO: add real handler
-                      ;#?@(:clj [:handler (fn [& _] (fn [_] (response/response "OK")))])}}]]])
+                :get {:responses {200 {:body [{:id pos-int?
+                                               :title string?
+                                               :year pos-int?
+                                               :director string?}]}}
+                      #?@(:clj [:handler movies-handlers/get-movies-list])}}]]])
 
-
+; TODO: move to cljs dir
 ;#?(:cljs
 ;   (def api-router
 ;     "Fake router of backend api for using in frontend."

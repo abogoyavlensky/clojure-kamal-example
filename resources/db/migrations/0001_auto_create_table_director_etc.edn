@@ -1,0 +1,20 @@
+({:action :create-table,
+  :model-name :director,
+  :fields
+  {:id {:primary-key true, :type :serial},
+   :name {:unique true, :null false, :type [:varchar 255]}}}
+ {:action :create-table,
+  :model-name :movie,
+  :fields
+  {:id {:primary-key true, :type :serial},
+   :title {:null false, :type [:varchar 255]},
+   :year {:null false, :check [:> :year 0], :type :integer},
+   :director-id
+   {:foreign-key :director/id,
+    :on-delete :cascade,
+    :null false,
+    :type :integer}}}
+ {:action :create-index,
+  :index-name :title-director-id-unique-idx,
+  :model-name :movie,
+  :options {:fields [:title :director-id], :unique true, :type :btree}})

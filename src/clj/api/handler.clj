@@ -20,8 +20,7 @@
   "Return application router."
   [context]
   (ring/router
-    ; TODO: uncomment api routes!
-    [;(routes/api-routes context)
+    [(routes/api-routes context)
      ["/health" {:name ::health-check
                  :get {:handler (fn [_] (response/response "OK"))}}]]
     {:validate ring-spec/validate

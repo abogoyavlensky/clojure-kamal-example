@@ -1,1 +1,15 @@
-{}
+{:director [[:id :serial {:primary-key true}]
+            [:name [:varchar 255] {:unique true
+                                   :null false}]]
+
+ :movie {:fields [[:id :serial {:primary-key true}]
+                  [:title [:varchar 255] {:null false}]
+                  [:year :integer {:null false
+                                   :check [:> :year 0]}]
+                  [:director-id :integer {:foreign-key :director/id
+                                          :on-delete :cascade
+                                          :null false}]]
+         :indexes [[:title-director-id-unique-idx
+                    :btree
+                    {:fields [:title :director-id]
+                     :unique true}]]}}

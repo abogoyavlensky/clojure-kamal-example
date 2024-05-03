@@ -26,6 +26,7 @@
 (defmethod ig/init-key ::server
   [_ {:keys [handler options]}]
   (log/info "[SERVER] Starting server...")
+  ; TODO: rename handler to router!
   (let [server (ring/run-jetty handler options)]
     (log/info (format
                 "[SERVER] Server has been started on: http://localhost:%s"
