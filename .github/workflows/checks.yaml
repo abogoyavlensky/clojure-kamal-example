@@ -10,12 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: jdx/mise-action@v2
-        with:
-          install: false
-        run: mise install task cljstyle
-#        env:
-#          MISE_DISABLE_TOOLS: node,lefthook,clj-kondo,java,ruby,clojure
+        env:
+          MISE_DISABLE_TOOLS: node,lefthook,clj-kondo,java,ruby,clojure
 
       - name: Fmt
         run: task fmt-check
@@ -24,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: jdx/mise-action@v2
         env:
           MISE_DISABLE_TOOLS: node,cljstyle,lefthook,ruby
@@ -33,8 +32,7 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-clojure-lint-${{ hashFiles('**/deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-clojure-lint
+          restore-keys: ${{ runner.os }}-clojure-lint
 
       - name: Lint
         run: task lint-init && task lint
@@ -43,6 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: jdx/mise-action@v2
         env:
           MISE_DISABLE_TOOLS: node,cljstyle,lefthook,ruby,clj-kondo
@@ -52,8 +51,7 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-clojure-outdated-${{ hashFiles('**/deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-clojure-outdated
+          restore-keys: ${{ runner.os }}-clojure-outdated
 
       - name: Outdated deps
         run: task outdated-check
