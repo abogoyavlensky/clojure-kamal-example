@@ -1,13 +1,38 @@
-name: Deploy
-
+name: Checks
 
 on:
   pull_request:
     branches: [ master ]
+  workflow_call:
 
 jobs:
-#  lint_fmt:
-#    uses: ./.github/workflows/_lint_fmt.yaml
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+
+      - name: Fmt
+        run: task fmt-check
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        env:
+          MISE_DISABLE_TOOLS: node,cljstyle,lefthook,ruby
+
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-clojure-lint-${{ hashFiles('**/deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clojure-lint
+
+      - name: Lint
+        run: task lint-init && task lint
 
   outdated:
     runs-on: ubuntu-latest
@@ -27,3 +52,5 @@ jobs:
 
       - name: Outdated deps
         run: task outdated-check
+
+#      TODO: run tests!
