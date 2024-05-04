@@ -1,4 +1,4 @@
-ARG CLJ_VERSION=1.11.1.1435
+ARG CLJ_VERSION=1.11.3.1463
 # TODO: combine front and back build to single step!
 # TODO: run on amd64
 FROM clojure:temurin-21-tools-deps-${CLJ_VERSION}-jammy AS build-js
@@ -16,7 +16,6 @@ RUN npm i
 
 # Clojure deps
 COPY deps.edn  /app/
-# TODO: remove dev!
 RUN clojure -P -X:cljs:shadow
 
 # Build forntend
@@ -52,4 +51,5 @@ CMD ["java", \
      # Configure jvm to use 80% of all requested memory for the app needs
      "-XX:InitialRAMPercentage=80.0", \
      "-XX:MaxRAMPercentage=80.0", \
-     "-jar", "standalone.jar", "system"]
+     "-jar", \
+     "standalone.jar"]

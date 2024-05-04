@@ -1,0 +1,77 @@
+service: clojure-kamal-example
+image: abogoyavlensky/clojure-kamal-example
+
+servers:
+  web:
+    hosts:
+      - <%= ENV['SERVER_IP'] %>
+    labels:
+      traefik.http.routers.budg.rule: Host(`APP_DOMAIN`)
+      traefik.http.routers.budg.tls: true
+      traefik.http.routers.budg.entrypoints: websecure
+      traefik.http.routers.budg.tls.certresolver: letsencrypt
+    options:
+      network: "traefik"
+
+registry:
+  server: ghcr.io
+  username: abogoyavlensky
+  password:
+    - REGISTRY_PASSWORD
+
+builder:
+  remote:
+    arch: amd64
+  cache:
+    type: gha
+    options: mode=max
+
+healthcheck:
+  path: /health
+  port: 80
+  exposed_port: 4001
+  max_attempts: 15
+  interval: 30s
+
+env:
+  secret:
+    - DATABASE_URL
+
+# Database
+accessories:
+ db:
+   image: postgres:15.2-alpine3.17
+   host: <%= ENV['SERVER_IP'] %>
+   env:
+     secret:
+       - POSTGRES_DB
+       - POSTGRES_USER
+       - POSTGRES_PASSWORD
+   directories:
+     - clojure_kamal_example_postgres_data:/var/lib/postgresql/data
+   options:
+     publish:
+       - "6433:5432"
+     network: "traefik"
+
+# Traefik
+traefik:
+  options:
+    publish:
+      - "80:80"
+      - "443:443"
+    network: "traefik"
+    volume:
+      - "/root/letsencrypt:/letsencrypt"
+  args:
+    entrypoints.web.address: ":80"
+    entrypoints.websecure.address: ":443"
+    # TLS-certificate configuration
+    certificatesResolvers.letsencrypt.acme.email: <%= ENV['TRAEFIK_ACME_EMAIL'] %>
+    certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
+    certificatesResolvers.letsencrypt.acme.tlschallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
+    # Redirect to HTTPS by default
+    entryPoints.web.http.redirections.entryPoint.to: websecure
+    entryPoints.web.http.redirections.entryPoint.scheme: https
+    entryPoints.web.http.redirections.entrypoint.permanent: true
