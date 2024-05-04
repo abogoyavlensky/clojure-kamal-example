@@ -4,7 +4,7 @@ WORKDIR /app
 # System deps
 ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:$PATH"
 RUN apt update && apt install git -y && curl https://mise.run | sh
-COPY .mise.toml /app/
+COPY .tool-versions /app/
 RUN mise install -y node clojure
 
 # Node deps
