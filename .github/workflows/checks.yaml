@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
+        with:
+          install: false
+        run: mise install task cljstyle
+#        env:
+#          MISE_DISABLE_TOOLS: node,lefthook,clj-kondo,java,ruby,clojure
 
       - name: Fmt
         run: task fmt-check
