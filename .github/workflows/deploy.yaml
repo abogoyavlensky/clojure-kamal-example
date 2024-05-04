@@ -1,0 +1,69 @@
+name: Deploy
+
+
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yaml
+
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    timeout-minutes: 20
+    needs: [ checks ]
+    steps:
+      - uses: actions/checkout@v4
+#      - uses: jdx/mise-action@v2
+#        env:
+#          MISE_DISABLE_TOOLS: node,cljstyle,lefthook,clj-kondo,java,task,clojure
+#      - uses: webfactory/ssh-agent@v0.9.0
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v3
+#
+#      - name: Setup Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#
+#      - name: Expose GitHub Runtime for cache
+#        uses: crazy-max/ghaction-github-runtime@v3
+#
+#      - name: Install kamal
+#        run: gem install kamal -v 1.5.1
+#
+#      - name: Push env vars
+#        env:
+#          BUDG_SERVER_IP: ${{ secrets.BUDG_SERVER_IP }}
+#          KAMAL_REGISTRY_PASSWORD: ${{ github.token }}
+#          TRAEFIK_ACME_EMAIL: ${{ secrets.TRAEFIK_ACME_EMAIL }}
+#          BUDG_JDBC_URL: ${{ secrets.BUDG_JDBC_URL }}
+#          BUDG_JWT_PRIVATE_KEY: ${{ secrets.BUDG_JWT_PRIVATE_KEY }}
+#          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+#          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+#          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+#        run: |
+#          kamal envify
+#
+#      - name: Build and push
+#        run: |
+#          kamal registry login
+#          kamal build push --version=${{ github.sha }}
+#
+#      - name: Migrations
+#        run:  |
+#          kamal build pull --version=${{ github.sha }}
+#          kamal app exec --version=${{ github.sha }} 'java -jar standalone.jar migrations'
+#
+#      - name: Deploy
+#        run: kamal deploy --skip-push --version=${{ github.sha }}
+#
+#      - name: Kamal Release
+#        if: ${{ cancelled() }}
+#        run: kamal lock release
