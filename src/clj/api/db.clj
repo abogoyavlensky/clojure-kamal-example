@@ -18,10 +18,11 @@
              ::maximum-pool-size]))
 
 
-(defmethod ig/pre-init-spec ::db
-  [_]
-  (s/keys
-    :req-un [::options]))
+; TODO: update to malli!
+;(defmethod ig/pre-init-spec ::db
+;  [_]
+;  (s/keys
+;    :req-un [::options]))
 
 
 (defmethod ig/init-key ::db

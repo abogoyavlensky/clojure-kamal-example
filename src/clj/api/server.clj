@@ -16,11 +16,12 @@
              ::port]))
 
 
-(defmethod ig/pre-init-spec ::server
-  [_]
-  (s/keys
-    :req-un [::options
-             ::handler]))
+; TODO: update to malli!
+;(defmethod ig/pre-init-spec ::server
+;  [_]
+;  (s/keys
+;    :req-un [::options
+;             ::handler]))
 
 
 (defmethod ig/init-key ::server
