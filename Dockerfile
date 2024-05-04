@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.2_13-jre-jammy AS build-js
+FROM eclipse-temurin:21.0.2_13-jre-jammy AS build
 
 WORKDIR /app
 # System deps
@@ -25,7 +25,7 @@ FROM eclipse-temurin:21.0.2_13-jre-jammy
 LABEL org.opencontainers.image.source=https://github.com/abogoyavlensky/clojure-kamal-example
 
 WORKDIR /app
-COPY --from=build-jar /app/target/standalone.jar /app/standalone.jar
+COPY --from=build /app/target/standalone.jar /app/standalone.jar
 
 # Run application
 EXPOSE 80
