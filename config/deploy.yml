@@ -20,9 +20,8 @@ registry:
     - REGISTRY_PASSWORD
 
 builder:
-# TODO: remove!
-#  remote:
-#    arch: amd64
+  remote:
+    arch: amd64
   cache:
     type: gha
     options: mode=max
@@ -59,7 +58,6 @@ accessories:
 traefik:
   options:
     publish:
-      - "80:80"
       - "443:443"
     network: "traefik"
     volume:
