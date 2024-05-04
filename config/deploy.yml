@@ -20,8 +20,9 @@ registry:
     - REGISTRY_PASSWORD
 
 builder:
-  remote:
-    arch: amd64
+# TODO: remove!
+#  remote:
+#    arch: amd64
   cache:
     type: gha
     options: mode=max
