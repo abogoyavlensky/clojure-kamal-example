@@ -20,9 +20,6 @@ registry:
     - REGISTRY_PASSWORD
 
 builder:
-  remote:
-    arch: amd64
-    host: ssh://root@<%= ENV['SERVER_IP'] %>
   cache:
     type: gha
     options: mode=max

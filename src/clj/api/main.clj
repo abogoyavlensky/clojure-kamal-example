@@ -20,7 +20,7 @@
 
 (defn -main
   "Run application system in production env."
-  [command & _args]
-  (case command
+  [& args]
+  (case (first args)
     "migrations" (automigrate/migrate)
     (run-system :prod)))
