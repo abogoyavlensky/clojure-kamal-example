@@ -6,10 +6,10 @@ servers:
     hosts:
       - <%= ENV['SERVER_IP'] %>
     labels:
-      traefik.http.routers.budg.rule: Host(`APP_DOMAIN`)
-      traefik.http.routers.budg.tls: true
-      traefik.http.routers.budg.entrypoints: websecure
-      traefik.http.routers.budg.tls.certresolver: letsencrypt
+      traefik.http.routers.clojure-kamal-example.rule: Host(`APP_DOMAIN`)
+      traefik.http.routers.clojure-kamal-example.tls: true
+      traefik.http.routers.clojure-kamal-example.entrypoints: websecure
+      traefik.http.routers.clojure-kamal-example.tls.certresolver: letsencrypt
     options:
       network: "traefik"
 
