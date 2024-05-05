@@ -20,6 +20,7 @@ registry:
     - REGISTRY_PASSWORD
 
 builder:
+  multiarch: false
   cache:
     type: gha
     options: mode=max
