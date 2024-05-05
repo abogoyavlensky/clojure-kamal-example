@@ -26,6 +26,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      # TODO: try to remove QEMU and buildx as it is non multiarch build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -41,7 +42,7 @@ jobs:
       - name: Push env vars
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
-          KAMAL_REGISTRY_PASSWORD: ${{ github.token }}
+          REGISTRY_PASSWORD: ${{ github.token }}
           TRAEFIK_ACME_EMAIL: ${{ secrets.TRAEFIK_ACME_EMAIL }}
           APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
