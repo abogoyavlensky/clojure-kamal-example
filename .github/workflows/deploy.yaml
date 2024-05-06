@@ -26,10 +26,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # TODO: try to remove QEMU and buildx as it is non multiarch build
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
