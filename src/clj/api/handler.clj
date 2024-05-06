@@ -1,6 +1,7 @@
 (ns api.handler
   (:require [integrant.core :as ig]
             [muuntaja.core :as muuntaja-core]
+            ; TODO: use malli!
             [reitit.coercion.spec :as coercion-spec]
             [reitit.dev.pretty :as pretty]
             [reitit.ring :as ring]
@@ -8,6 +9,7 @@
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.ring.middleware.parameters :as params]
             [reitit.ring.middleware.exception :as exception]
+            ; TODO: use malli!
             [reitit.ring.spec :as ring-spec]
             [ring.middleware.gzip :as gzip]
             [ring.util.response :as response]

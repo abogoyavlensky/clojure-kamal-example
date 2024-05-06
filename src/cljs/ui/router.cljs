@@ -1,5 +1,6 @@
 (ns ui.router
   (:require [re-frame.core :as re-frame]
+            ; TODO: use malli!
             [reitit.coercion.spec :as reitit-spec]
             [reitit.frontend :as reitit-front]
             [reitit.frontend.easy :as reitit-easy]

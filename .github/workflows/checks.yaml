@@ -13,7 +13,7 @@ jobs:
 
       - uses: jdx/mise-action@v2
         env:
-          MISE_DISABLE_TOOLS: node,lefthook,clj-kondo,java,ruby,clojure
+          MISE_DISABLE_TOOLS: node,lefthook
 
       - name: Fmt
         run: task fmt-check
@@ -25,7 +25,7 @@ jobs:
 
       - uses: jdx/mise-action@v2
         env:
-          MISE_DISABLE_TOOLS: node,cljstyle,lefthook,ruby
+          MISE_DISABLE_TOOLS: node,lefthook
 
       - name: Cache Clojure dependencies
         uses: actions/cache@v4
@@ -44,7 +44,7 @@ jobs:
 
       - uses: jdx/mise-action@v2
         env:
-          MISE_DISABLE_TOOLS: node,cljstyle,lefthook,ruby,clj-kondo
+          MISE_DISABLE_TOOLS: node,lefthook
 
       - name: Cache Clojure dependencies
         uses: actions/cache@v4
