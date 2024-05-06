@@ -5,6 +5,7 @@
         ; System & Config
         integrant/integrant {:mvn/version "0.9.0"}
         aero/aero {:mvn/version "1.1.6"}
+        metosin/malli {:mvn/version "0.16.1"}
         ; Server
         metosin/reitit {:mvn/version "0.7.0"}
         ring/ring-jetty-adapter {:mvn/version "1.12.1"}

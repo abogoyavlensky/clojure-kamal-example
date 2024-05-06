@@ -3,4 +3,6 @@
            :shadowed-var {:level :warning}
            :missing-docstring {:level :warning}
            :refer-all {:exclude [clojure.test]}
-           :consistent-alias {:aliases {clojure.string str}}}}
+           :consistent-alias {:aliases {clojure.string str
+                                        malli.core m
+                                        malli.error me}}}}

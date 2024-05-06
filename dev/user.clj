@@ -1,7 +1,7 @@
 (ns user
   (:require [clojure.tools.namespace.repl :as repl]
             [integrant.repl :as ig-repl]
-            [api.util.system :as util-system]
+            [api.util.system :as system-util]
             [clojure.test :as test]))
 
 
@@ -10,7 +10,7 @@
 
 (defn- dev-config
   [& _]
-  (-> (util-system/config :dev)
+  (-> (system-util/config :dev)
     ; Uncomment for running system without components.
     #_(select-keys [])))
 

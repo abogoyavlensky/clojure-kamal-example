@@ -11,8 +11,9 @@
             [reitit.ring.spec :as ring-spec]
             [ring.middleware.gzip :as gzip]
             [ring.util.response :as response]
-            [api.util.handler :as util-handler]
-            [api.util.middlewares :as util-middlewares]
+            [api.util.handler :as handler-util]
+            [api.util.middlewares :as middlewares-util]
+            [api.util.system :as system-util]
             [common.api-routes :as routes]))
 
 
@@ -29,7 +30,7 @@
             :coercion coercion-spec/coercion
             :middleware [gzip/wrap-gzip
                          ; add handler options to request
-                         [util-middlewares/wrap-handler-context context]
+                         [middlewares-util/wrap-handler-context context]
                          ; parse any request params
                          params/parameters-middleware
                          ; negotiate request and response
@@ -47,16 +48,28 @@
   (ring/ring-handler
     (router context)
     (ring/routes
-      (util-handler/create-resource-handler-cached {:path "/assets/"
+      (handler-util/create-resource-handler-cached {:path "/assets/"
                                                     :cached? (:cache-assets? options)})
-      (util-handler/create-index-handler)
+      (handler-util/create-index-handler)
       (ring/redirect-trailing-slash-handler)
       (ring/create-default-handler))))
+
+
+(defmethod ig/assert-key ::handler
+  [_ params]
+  (system-util/validate-schema!
+    {:schema [:map
+              [:db :some]
+              [:options [:map
+                         [:reloaded? boolean?]
+                         [:cache-assets? boolean?]]]]
+     :data params
+     :error-message "Invalid handler params"}))
 
 
 (defmethod ig/init-key ::handler
   [_ {:keys [options] :as context}]
   (let [create-handler-fn #(handler context)]
     (if (true? (:reloaded? options))
-      (util-middlewares/reloading-ring-handler create-handler-fn)
+      (middlewares-util/reloading-ring-handler create-handler-fn)
       (create-handler-fn))))

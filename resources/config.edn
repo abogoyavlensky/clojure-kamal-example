@@ -8,7 +8,6 @@
                                                           :dev false}}
                        :db #ig/ref :api.db/db}
 
- :api.server/server {:options {:join? false
-                               :port #profile {:default 80
+ :api.server/server {:options {:port #profile {:default 80
                                                :dev 8000}}
                      :handler #ig/ref :api.handler/handler}}

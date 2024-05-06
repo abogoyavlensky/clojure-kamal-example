@@ -1,6 +1,8 @@
 (ns api.util.system
   (:require [clojure.java.io :as io]
             [clojure.tools.logging :as log]
+            [malli.core :as m]
+            [malli.error :as me]
             [aero.core :as aero]
             [integrant.core :as ig])
   (:import (clojure.lang IFn)))
@@ -39,3 +41,11 @@
                         (ig/halt! system)
                         (shutdown-agents)
                         (log/info "[SYSTEM] System has been stopped."))))))
+
+
+(defn validate-schema!
+  "Validate data against schema and throw an error if data is not valid."
+  [{:keys [schema data error-message]}]
+  (some-> (m/explain schema data)
+          (me/humanize)
+          (#(throw (Exception.  (str error-message ": " %))))))

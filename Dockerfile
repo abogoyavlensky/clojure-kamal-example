@@ -5,6 +5,7 @@ WORKDIR /app
 ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:$PATH"
 RUN apt update && apt install git -y && curl https://mise.run | sh
 COPY .tool-versions /app/
+# TODO: install task and use it below for all build commands!
 RUN mise install -y node clojure
 
 # Node deps
