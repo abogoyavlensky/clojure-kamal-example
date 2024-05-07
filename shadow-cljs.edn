@@ -1,5 +1,6 @@
 {:deps {:aliases [:dev :cljs :shadow]}
  :builds {:app {:target :browser
+                ; TODO: try to remove `resources` and `assets` dirs from config!
                 :output-dir "resources/public/js"
                 :asset-path "/assets/js"
                 :module-hash-names true
@@ -8,6 +9,7 @@
                            :watch-path "/assets"
                            :after-load ui.main/render!
                            :preloads [day8.re-frame-10x.preload.react-18]}
+                ; TODO: maybe remove debugger!
                 :dev {:compiler-options {:closure-defines
                                          {re-frame.trace.trace-enabled? true
                                           day8.re-frame.tracing.trace-enabled? true}}}
