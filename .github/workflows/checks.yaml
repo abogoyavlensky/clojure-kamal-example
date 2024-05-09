@@ -6,6 +6,7 @@ on:
   workflow_call:
 
 jobs:
+  # TODO: move `task deps` to separate step!
   fmt:
     runs-on: ubuntu-latest
     steps:
