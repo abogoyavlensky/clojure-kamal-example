@@ -1,7 +1,6 @@
 (ns ui.util.api-routes
   (:require [reitit.core :as reitit]
-            ; TODO: use malli!
-            [reitit.coercion.spec :as reitit-spec]
+            [reitit.coercion.malli :as reitit-malli]
             [reitit.frontend :as reitit-front]
             [common.api-routes :as api-routes]))
 
@@ -10,7 +9,7 @@
   "Fake router of backend api for using in frontend."
   (reitit-front/router
     [(api-routes/api-routes {})]
-    {:data {:coercion reitit-spec/coercion}}))
+    {:data {:coercion reitit-malli/coercion}}))
 
 
 (defn api-route-path

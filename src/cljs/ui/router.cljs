@@ -1,7 +1,6 @@
 (ns ui.router
   (:require [re-frame.core :as re-frame]
-            ; TODO: use malli!
-            [reitit.coercion.spec :as reitit-spec]
+            [reitit.coercion.malli :as reitit-malli]
             [reitit.frontend :as reitit-front]
             [reitit.frontend.easy :as reitit-easy]
             [ui.events :as events]
@@ -21,7 +20,7 @@
   "Router for frontend pages."
   (reitit-front/router
     routes
-    {:data {:coercion reitit-spec/coercion}}))
+    {:data {:coercion reitit-malli/coercion}}))
 
 
 (defn- on-navigate

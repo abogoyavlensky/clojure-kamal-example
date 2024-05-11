@@ -19,22 +19,8 @@ jobs:
           key: ${{ runner.os }}-clojure-dev-${{ hashFiles('**/deps.edn') }}
           restore-keys: ${{ runner.os }}-clojure-dev
 
-#      - name: Restore cached clojure dev deps
-#        id: cache-restore-clojure-dev-deps
-#        uses: actions/cache/restore@v4
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-clojure-dev-${{ hashFiles('**/deps.edn') }}
-#          restore-keys: ${{ runner.os }}-clojure-dev
-
       - name: Install Clojure dev deps
         run: task deps
-
-#      - name: Save cached Clojure dev deps
-#        uses: actions/cache/save@v4
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ steps.cache-restore-clojure-dev-deps.outputs.cache-primary-key }}
 
   fmt:
     runs-on: ubuntu-latest

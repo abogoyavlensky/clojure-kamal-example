@@ -8,8 +8,10 @@
   ["/api"
    ["/v1"
     ["/movies" {:name ::movies
-                :get {:responses {200 {:body [{:id pos-int?
-                                               :title string?
-                                               :year pos-int?
-                                               :director string?}]}}
+                :get {:responses {200 {:body [:vector
+                                              [:map
+                                               [:id pos-int?]
+                                               [:title string?]
+                                               [:year pos-int?]
+                                               [:director string?]]]}}
                       #?@(:clj [:handler movies-handlers/get-movies-list])}}]]])
