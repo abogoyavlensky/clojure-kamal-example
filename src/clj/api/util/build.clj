@@ -7,8 +7,6 @@
            [java.nio.file Paths]))
 
 
-; TODO: refactor, make less code!
-
 (defn- md5
   [^String s]
   (let [algorithm (MessageDigest/getInstance "MD5")

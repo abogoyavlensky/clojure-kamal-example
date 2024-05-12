@@ -1,7 +1,6 @@
 (ns api.handler
   (:require [integrant.core :as ig]
             [muuntaja.core :as muuntaja-core]
-
             [reitit.coercion.malli :as coercion-malli]
             [reitit.dev.pretty :as pretty]
             [reitit.ring :as ring]
@@ -26,8 +25,6 @@
        ["/health" {:name ::health-check
                    :get {:handler (fn [_] (response/response "OK"))}}]]
       {:exception pretty/exception
-       ; TODO: try to uncomment!
-       ;:compile coercion/compile-request-coercers
        :data {:muuntaja muuntaja-core/instance
               :coercion coercion-malli/coercion
               :middleware [gzip/wrap-gzip
@@ -43,7 +40,6 @@
                            ring-coercion/coerce-request-middleware
                            ring-coercion/coerce-response-middleware]}})
     (ring/routes
-      ; TODO: try to use just default handler for index.html and assets
       (handler-util/create-resource-handler-cached
         {:path "/assets/"
          :cached? (:cache-assets? options)})
