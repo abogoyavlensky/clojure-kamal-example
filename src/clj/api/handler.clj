@@ -1,8 +1,7 @@
 (ns api.handler
   (:require [integrant.core :as ig]
             [muuntaja.core :as muuntaja-core]
-            ; TODO: remove!
-            ;[reitit.coercion :as coercion]
+
             [reitit.coercion.malli :as coercion-malli]
             [reitit.dev.pretty :as pretty]
             [reitit.ring :as ring]
@@ -45,8 +44,9 @@
                            ring-coercion/coerce-response-middleware]}})
     (ring/routes
       ; TODO: try to use just default handler for index.html and assets
-      (handler-util/create-resource-handler-cached {:path "/assets/"
-                                                    :cached? (:cache-assets? options)})
+      (handler-util/create-resource-handler-cached
+        {:path "/assets/"
+         :cached? (:cache-assets? options)})
       (handler-util/create-index-handler)
       (ring/redirect-trailing-slash-handler)
       (ring/create-default-handler))))
