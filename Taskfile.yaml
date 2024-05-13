@@ -5,9 +5,8 @@ vars:
 
 dotenv: ['.env.local']
 
-# TODO: make as less tasks as possible
-
 tasks:
+  # Backend commands
   deps:
     desc: Install all dev deps
     cmds:
@@ -18,9 +17,9 @@ tasks:
     cmds:
       - clojure -X:dev:test
 
-  #  Formatting cmds
   fmt-check:
     desc: Check code formatting
+    internal: true
     cmds:
       - cljstyle check --report {{ .DIRS }}
 
@@ -29,7 +28,6 @@ tasks:
     cmds:
       - cljstyle fix --report {{ .DIRS }}
 
-  #  Linting cmds
   lint-init:
     desc: Linting project's classpath
     cmds:
@@ -43,20 +41,12 @@ tasks:
     cmds:
       - clj-kondo --parallel --lint {{ .DIRS }}
 
-  # All code checks
-  check:
-    desc: Check linting and apply formatting locally
-    cmds:
-      - task: fmt
-      - task: lint
-
-  # Check deps versions
   outdated-check:
-    desc: outdated  # Check outdated deps versions
+    desc: Check outdated deps versions
+    internal: true
     cmds:
       - clojure -M:outdated {{ .CLI_ARGS }}
 
-  # Upgrade deps versions
   outdated:
     desc: Upgrade outdated Clojure deps versions
     cmds:
@@ -65,36 +55,48 @@ tasks:
 
   # Frontend commands
   shadow:
-    desc: Run shadow-cljs commands to build frontend
+    desc: Run shadow-cljs commands
+    internal: true
     cmds:
       - clojure -M:dev:cljs:shadow {{ .CLI_ARGS }}
 
   js-watch:
     desc: Run shadow-cljs commands to build frontend in watch mode
+    internal: true
     cmds:
       - task: shadow
         vars: { CLI_ARGS: 'watch app'}
 
-#  TODO: remove!
   css:
-    desc: Build css
+    desc: Build css in dev mode
+    internal: true
+    vars:
+      OUTPUT_FILE: '{{ .OUTPUT_FILE | default "output.css" }}'
     cmds:
-      - npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output.css {{ .CLI_ARGS }}
-
-  css-prod:
-    desc: Build css
-    cmds:
-      - npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output-prod.css --minify
+      - npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/{{.OUTPUT_FILE}} {{ .CLI_ARGS }}
 
   css-watch:
     desc: Build css in watch mode
+    internal: true
     cmds:
       - task: css
-        vars: { CLI_ARGS: '--watch'}
+        vars: { CLI_ARGS: '--watch' }
 
-  # Local compose commands
+  css-prod:
+    desc: Build css in prod mode
+    cmds:
+      - task: css
+        vars:
+          OUTPUT_FILE: output-prod.css
+          CLI_ARGS: '--minify'
+
+  ui:
+    desc: Build js and css in watch mode for local development
+    deps: [css-watch, js-watch]
+
+  # Local docker compose commands
   up:
-    desc: Run local deps for development
+    desc: Run docker services for local development
     cmds:
       - docker compose up -d db-local db-test
 
@@ -103,10 +105,10 @@ tasks:
     cmds:
       - clojure -X:migrations {{ .CLI_ARGS }}
 
+  # Production build
   build:
-    desc: Build jar
+    desc: Build uberjar
     cmds:
-      - npm i
       - task: shadow
         vars: { CLI_ARGS: 'release app' }
       - clojure -T:build build
