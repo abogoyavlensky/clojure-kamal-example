@@ -7,10 +7,9 @@
                 :devtools {:watch-dir "resources/public"
                            :watch-path "/assets"
                            :after-load ui.main/render!}
-                :release {:build-hooks [; Build css and update file name in index.html with hash
-                                        (api.util.build/build-css
-                                          {:build-cmd  "task css-prod"
-                                           :output-file-path "resources/public/css/output-prod.css"
+                :release {:build-hooks [; Update file name in index.html with hash
+                                        (api.util.build/hash-css
+                                          {:output-file-path "resources/public/css/output-prod.css"
                                            :file-name-in-html "output.css"})
                                         ; Update js file name in index.html with hash
                                         (shadow.html/copy-file

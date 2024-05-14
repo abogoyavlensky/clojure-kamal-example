@@ -19,7 +19,6 @@ tasks:
 
   fmt-check:
     desc: Check code formatting
-    internal: true
     cmds:
       - cljstyle check --report {{ .DIRS }}
 
@@ -43,7 +42,6 @@ tasks:
 
   outdated-check:
     desc: Check outdated deps versions
-    internal: true
     cmds:
       - clojure -M:outdated {{ .CLI_ARGS }}
 
@@ -109,6 +107,7 @@ tasks:
   build:
     desc: Build uberjar
     cmds:
+      - task: css-prod
       - task: shadow
         vars: { CLI_ARGS: 'release app' }
       - clojure -T:build build

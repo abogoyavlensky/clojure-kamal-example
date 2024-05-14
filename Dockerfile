@@ -17,8 +17,7 @@ RUN clojure -P -X:cljs:shadow
 
 # Build frontend and jar
 COPY . /app
-RUN clojure -M:cljs:shadow release app
-RUN clojure -T:build build
+RUN task build
 
 # Result image
 FROM eclipse-temurin:21.0.2_13-jre-jammy

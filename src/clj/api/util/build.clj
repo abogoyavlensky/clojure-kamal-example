@@ -1,6 +1,5 @@
 (ns api.util.build
-  (:require [clojure.java.shell :as shell]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [clojure.string :as str])
   (:import [java.security MessageDigest]
            [java.math BigInteger]
@@ -40,47 +39,37 @@
 
 
 (defn- replace-file-name-in-html!
-  [source-html-file target-html-file file-name-in-html output-file-name-hash]
-  (let [html (slurp source-html-file)
-        html* (str/replace html file-name-in-html output-file-name-hash)
-        target-file (io/file target-html-file)]
-    ; Replace file name in html
-    (io/make-parents target-file)
-    (spit target-file html*)))
+  [html-file-path file-name-in-html output-file-name-hash]
+  (let [html (-> html-file-path
+                 (slurp)
+                 (str/replace file-name-in-html output-file-name-hash))]
+    (spit html-file-path html)))
 
 
 (defn- rename-file!
-  [{:keys [source-html-file target-html-file output-file-path file-name-in-html]}]
-  (let [target-html-file (or target-html-file source-html-file)
-        content-hash (-> output-file-path
-                         (slurp)
-                         (md5))
-        output-file-name-hash (get-file-path-with-hash file-name-in-html content-hash)]
+  [{:keys [html-file-path output-file-path file-name-in-html]}]
+  (let [output-file-name-hash (->> output-file-path
+                                   (slurp)
+                                   (md5)
+                                   (get-file-path-with-hash file-name-in-html))]
     ; Update file name and html
     (rename-output-file! output-file-path output-file-name-hash)
     (replace-file-name-in-html!
-      source-html-file
-      target-html-file
+      html-file-path
       file-name-in-html
       output-file-name-hash)))
 
 
-(defn build-css
-  "Build css using provided shell-command and rename css file
-  in html with hash of that file."
+(defn hash-css
+  "Rename css file in html with hash of the file."
   {:shadow.build/stage :flush}
   [build-state
-   {:keys [build-cmd
-           output-file-path
+   {:keys [output-file-path
            file-name-in-html
-           source-html-file
-           target-html-file]
-    :or {source-html-file "resources/public/index.html"}}]
-  ; Build output file
-  (apply shell/sh (str/split build-cmd #" "))
+           html-file-path]
+    :or {html-file-path "resources/public/index.html"}}]
   ; Rename output file with hash
-  (rename-file! {:source-html-file source-html-file
-                 :target-html-file target-html-file
+  (rename-file! {:html-file-path html-file-path
                  :output-file-path output-file-path
                  :file-name-in-html file-name-in-html})
   build-state)
