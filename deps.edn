@@ -43,7 +43,7 @@
                   :exec-args {:test-ns-path ["test"]
                               :src-ns-path ["src"]
                               :runner :eftest
-                              :runner-opts {:multithread? :namespaces}}}
+                              :runner-opts {:multithread? false}}}
 
            :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.8.1201"}}
                       :main-opts ["-m" "antq.core" "--no-diff"]}

@@ -1,4 +1,5 @@
-{:api.db/db {:options {:jdbc-url #env DATABASE_URL
+{:api.db/db {:options {:jdbc-url #profile {:default #env DATABASE_URL
+                                           :test "jdbc:postgresql://localhost:5544/demo?user=demo&password=demo"}
                        :minimum-pool-size 3
                        :maximum-pool-size 15}}
 

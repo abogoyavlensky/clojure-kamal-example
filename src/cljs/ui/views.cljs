@@ -23,6 +23,7 @@
        [:h1.text-3xl.font-extrabold.sm:text-5xl "Welcome to your"
         [:strong.font-extrabold.text-emerald-700.sm:block "Clojure full-stack application!"]]
        [:p.mt-4.sm:text-xl/relaxed "Get started by editing `src/cljs/ui/views.cljs`."]
+       ; TODO: keep just title and list of movies
        [:div.mt-8.flex.flex-wrap.gap-4
         [:h2.text-3xl "Movies"]
         [:div.overflow-x-auto
