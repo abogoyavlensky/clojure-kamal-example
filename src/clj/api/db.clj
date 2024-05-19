@@ -10,9 +10,7 @@
   (system-util/validate-schema!
     {:schema [:map
               [:options [:map
-                         [:jdbc-url string?]
-                         [:minimum-pool-size {:optional true} pos-int?]
-                         [:maximum-pool-size {:optional true} pos-int?]]]]
+                         [:jdbc-url string?]]]]
      :data params
      :error-message "Invalid db options"}))
 
