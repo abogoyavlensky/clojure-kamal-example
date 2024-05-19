@@ -5,8 +5,8 @@
 
  :api.handler/handler {:options {:reloaded? #profile {:default false
                                                       :dev true}
-                                 :cache-assets? #profile {:default true
-                                                          :dev false}}
+                                 :cache-assets? #profile {:default false
+                                                          :prod true}}
                        :db #ig/ref :api.db/db}
 
  :api.server/server {:options {:port #profile {:default 8000
