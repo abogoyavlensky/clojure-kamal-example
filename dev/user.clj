@@ -10,9 +10,7 @@
 
 (defn- dev-config
   [& _]
-  (-> (system-util/config :dev)
-    ; Uncomment for running system without components.
-    #_(select-keys [])))
+  (system-util/config :dev))
 
 
 (defn- integrant-prep!

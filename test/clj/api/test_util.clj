@@ -1,4 +1,4 @@
-(ns api.test-utils
+(ns api.test-util
   (:require [clojure.test :refer :all]
             [integrant.core :as ig]
             [automigrate.core :as automigrate]

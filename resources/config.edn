@@ -10,5 +10,4 @@
  :api.server/server {:options {:port #profile {:default 8000
                                                :prod 80
                                                :test #free-port true}}
-
                      :handler #ig/ref :api.handler/handler}}
