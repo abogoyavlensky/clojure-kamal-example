@@ -14,12 +14,3 @@ services:
       - POSTGRES_PASSWORD
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data
-
-  db-test:
-    image: postgres:15.2-alpine3.17
-    ports:
-      - "5544:5432"
-    environment:
-      - POSTGRES_DB
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD

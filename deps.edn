@@ -38,7 +38,9 @@
            :test {:extra-paths ["test/clj" "test/cljs"]
                   :extra-deps {eftest/eftest {:mvn/version "0.6.0"}
                                cloverage/cloverage {:mvn/version "1.2.4"}
-                               hato/hato {:mvn/version "0.9.0"}}
+                               hato/hato {:mvn/version "0.9.0"}
+                               clj-test-containers/clj-test-containers {:mvn/version "0.7.4"}
+                               org.testcontainers/postgresql {:mvn/version "1.19.8"}}
                   :exec-fn cloverage.coverage/run-project
                   :exec-args {:test-ns-path ["test"]
                               :src-ns-path ["src"]

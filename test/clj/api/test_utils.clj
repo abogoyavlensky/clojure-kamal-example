@@ -16,7 +16,6 @@
   []
   (fn [test-fn]
     (let [test-config (system-util/config :test)]
-      ; TODO: try to remove!
       (ig/load-namespaces test-config)
       (binding [*test-system* (ig/init test-config)]
         (try
