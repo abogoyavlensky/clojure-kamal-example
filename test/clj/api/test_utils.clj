@@ -46,3 +46,10 @@
       (drop-all-tables db)
       (automigrate/migrate {:jdbc-url jdbc-url})
       (f))))
+
+
+(defn get-server-url
+  "Return full url from jetty server object."
+  [server]
+  (let [port (.getLocalPort (first (.getConnectors server)))]
+    (str "http://localhost:" port)))

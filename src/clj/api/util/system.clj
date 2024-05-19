@@ -5,7 +5,8 @@
             [malli.error :as me]
             [aero.core :as aero]
             [integrant.core :as ig])
-  (:import (clojure.lang IFn)))
+  (:import (clojure.lang IFn)
+           (java.net ServerSocket)))
 
 
 (def ^:private CONFIG-FILE-PATH "config.edn")
@@ -20,6 +21,12 @@
 (defmethod aero/reader 'ig/ref
   [_ _ value]
   (ig/ref value))
+
+
+(defmethod aero/reader 'free-port
+  [_ _ _value]
+  (with-open [socket (ServerSocket. 0)]
+    (.getLocalPort socket)))
 
 
 (defn config
