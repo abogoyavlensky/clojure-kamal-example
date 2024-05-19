@@ -15,7 +15,7 @@ tasks:
   test:
     desc: Run tests
     cmds:
-      - clojure -X:dev:test
+      - clojure -X:dev:cljs:test
 
   fmt-check:
     desc: Check code formatting

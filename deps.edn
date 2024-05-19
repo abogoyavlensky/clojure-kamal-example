@@ -3,7 +3,7 @@
         org.clojure/tools.logging {:mvn/version "1.3.0"}
         ch.qos.logback/logback-classic {:mvn/version "1.5.6"}
         ; System & Config
-        integrant/integrant {:mvn/version "0.9.0"}
+        integrant/integrant {:mvn/version "0.10.0"}
         aero/aero {:mvn/version "1.1.6"}
         metosin/malli {:mvn/version "0.16.1"}
         ; Server
@@ -13,7 +13,7 @@
         ; db
         org.postgresql/postgresql {:mvn/version "42.7.3"}
         hikari-cp/hikari-cp {:mvn/version "3.1.0"}
-        com.github.seancorfield/next.jdbc {:mvn/version "1.3.925"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.939"}
         com.github.seancorfield/honeysql {:mvn/version "2.6.1126"}
         net.clojars.abogoyavlensky/automigrate {:mvn/version "0.3.3"}}
 
