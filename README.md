@@ -1,3 +1,26 @@
-# Full-stack Clojure app example with Kamal for deployment
+# Full-stack Clojure/Script setup with deployment using Kamal
 
-TODO: add description and HOWTOs
+This project aims to show a setup for Clojure/Script web-application that 
+uses PostgreSQL as a main database. Also, there is a config for simple 
+deployment the app with Kamal on a single server. 
+
+Key backend libs:
+- Integrant
+- Reitit
+- Malli
+- next.jdbc
+- honeysql
+- Automigrate
+- clj-test-containers
+
+Key frontend libs:
+- re-frame
+- Reitit
+- cljs-ajax
+- shadow-cljs
+- TailwindCSS
+
+Other tools:
+- mise-en-place
+- Kamal
+- GitHub Actions
