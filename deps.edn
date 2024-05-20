@@ -32,7 +32,7 @@
                                day8.re-frame/http-fx {:mvn/version "0.2.4"}
                                cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}}}
 
-           :shadow {:extra-deps {thheller/shadow-cljs {:mvn/version "2.28.6"}}
+           :shadow {:extra-deps {thheller/shadow-cljs {:mvn/version "2.28.7"}}
                     :main-opts ["-m" "shadow.cljs.devtools.cli"]}
 
            :test {:extra-paths ["test/clj" "test/cljs"]
