@@ -1,5 +1,5 @@
 service: clojure-kamal-example
-image: abogoyavlensky/clojure-kamal-example
+image: <%= ENV['REGISTRY_USERNAME'] %>/clojure-kamal-example
 
 servers:
   web:
@@ -15,7 +15,7 @@ servers:
 
 registry:
   server: ghcr.io
-  username: abogoyavlensky
+  username: <%= ENV['REGISTRY_USERNAME'] %>
   password:
     - REGISTRY_PASSWORD
 

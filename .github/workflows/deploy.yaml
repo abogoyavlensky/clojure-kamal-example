@@ -31,11 +31,12 @@ jobs:
         uses: crazy-max/ghaction-github-runtime@v3
 
       - name: Install kamal
-        run: gem install kamal -v 1.5.1
+        run: gem install kamal -v 1.5.2
 
       - name: Push env vars
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
+          REGISTRY_USERNAME: ${{ github.repository_owner }}
           REGISTRY_PASSWORD: ${{ github.token }}
           TRAEFIK_ACME_EMAIL: ${{ secrets.TRAEFIK_ACME_EMAIL }}
           APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
@@ -43,8 +44,7 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: |
-          kamal envify
+        run: kamal envify
 
       - name: Build and push
         run: |
