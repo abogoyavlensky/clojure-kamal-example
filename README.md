@@ -11,12 +11,10 @@ Key backend libs:
 - next.jdbc
 - honeysql
 - Automigrate
-- clj-test-containers
 
 Key frontend libs:
 - re-frame
 - Reitit
-- cljs-ajax
 - shadow-cljs
 - TailwindCSS
 
@@ -24,3 +22,4 @@ Other tools:
 - mise-en-place
 - Kamal
 - GitHub Actions
+- Testcontainers
