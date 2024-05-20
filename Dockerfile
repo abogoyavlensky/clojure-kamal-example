@@ -5,7 +5,7 @@ WORKDIR /app
 ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:$PATH"
 RUN apt update && apt install git -y && curl https://mise.run | sh
 COPY .tool-versions /app/
-RUN mise install -y task node clojure
+RUN mise install -y node clojure
 
 # Node deps
 COPY package.json package-lock.json /app/
@@ -15,9 +15,11 @@ RUN npm i
 COPY deps.edn  /app/
 RUN clojure -P -X:cljs:shadow
 
-# Build frontend and jar
+# Build ui and uberjar
 COPY . /app
-RUN task build
+RUN npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output-prod.css --minify \
+    clojure -M:dev:cljs:shadow release app \
+    clojure -T:build build
 
 # Result image
 FROM eclipse-temurin:21.0.2_13-jre-jammy
@@ -28,11 +30,4 @@ COPY --from=build /app/target/standalone.jar /app/standalone.jar
 
 # Run application
 EXPOSE 80
-CMD ["java", \
-     "-Xms64m", \
-     "-Xmx256m", \
-     # Configure jvm to use 80% of all requested memory for the app needs
-     "-XX:InitialRAMPercentage=80.0", \
-     "-XX:MaxRAMPercentage=80.0", \
-     "-jar", \
-     "standalone.jar"]
+CMD ["java", "-Xms64m", "-Xmx256m", "-jar", "standalone.jar"]
