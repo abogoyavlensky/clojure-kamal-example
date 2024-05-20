@@ -36,16 +36,8 @@ jobs:
     needs: [ deps ]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/restore-deps
-#      - uses: actions/checkout@v4
-#      - uses: jdx/mise-action@v2
-#      - name: Restore cached clojure dev deps
-#        uses: actions/cache/restore@v4
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-clojure-dev-${{ hashFiles('**/deps.edn') }}
-#          restore-keys: ${{ runner.os }}-clojure-dev
-
+      - name: Restore Clojure and system deps
+        uses: ./.github/actions/restore-deps
       - name: Lint
         run: task lint-init && task lint
 
@@ -54,14 +46,8 @@ jobs:
     needs: [ deps ]
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
-      - name: Restore cached clojure dev deps
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-clojure-dev-${{ hashFiles('**/deps.edn') }}
-          restore-keys: ${{ runner.os }}-clojure-dev
-
+      - name: Restore Clojure and system deps
+        uses: ./.github/actions/restore-deps
       - name: Outdated deps
         run: task outdated-check
 
@@ -70,13 +56,7 @@ jobs:
     needs: [ deps ]
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
-      - name: Restore cached clojure dev deps
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-clojure-dev-${{ hashFiles('**/deps.edn') }}
-          restore-keys: ${{ runner.os }}-clojure-dev
-
+      - name: Restore Clojure and system deps
+        uses: ./.github/actions/restore-deps
       - name: Run tests
         run: task test
