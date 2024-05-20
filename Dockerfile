@@ -18,8 +18,8 @@ RUN clojure -P -X:cljs:shadow
 # Build ui and uberjar
 COPY . /app
 RUN npx tailwindcss -i ./resources/public/css/input.css -o ./resources/public/css/output-prod.css --minify \
-    clojure -M:dev:cljs:shadow release app \
-    clojure -T:build build
+    && clojure -M:dev:cljs:shadow release app \
+    && clojure -T:build build
 
 # Result image
 FROM eclipse-temurin:21.0.2_13-jre-jammy
