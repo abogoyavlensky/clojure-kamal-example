@@ -35,7 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ deps ]
     steps:
-      - uses: ./.github/actions/install-deps
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/restore-deps
 #      - uses: actions/checkout@v4
 #      - uses: jdx/mise-action@v2
 #      - name: Restore cached clojure dev deps
