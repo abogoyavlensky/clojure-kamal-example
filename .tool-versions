@@ -4,5 +4,4 @@ clojure 1.11.3.1463
 node 16.16.0
 cljstyle 0.16.626
 clj-kondo 2024.03.13
-lefthook 1.6.10
 ruby 3.3.0

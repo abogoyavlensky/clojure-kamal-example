@@ -17,6 +17,7 @@ lsp/
 .calva
 .DS_Store
 .portal/
+lefthook.yml
 node_modules
 resources/public/css/output*
 resources/public/assets/*
