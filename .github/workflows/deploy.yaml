@@ -41,8 +41,9 @@ jobs:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
+          echo ${{ github.workspace }}
           echo $GITHUB_WORKSPACE
-          ./kamal-ci.sh details
+#          ./kamal-ci.sh details
 #        run: ./kamal.sh envify
 #
 #      - name: Build and push
