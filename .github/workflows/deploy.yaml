@@ -19,7 +19,6 @@ jobs:
     needs: [ checks ]
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -29,9 +28,6 @@ jobs:
 
       - name: Expose GitHub Runtime for cache
         uses: crazy-max/ghaction-github-runtime@v3
-
-      - name: Install kamal
-        run: gem install kamal -v 1.5.2
 
       - name: Push env vars
         env:
@@ -44,21 +40,21 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: kamal envify
+        run: ./kamal.sh envify
 
       - name: Build and push
         run: |
-          kamal registry login
-          kamal build push --version=${{ github.sha }}
+          ./kamal.sh registry login
+          ./kamal.sh build push --version=${{ github.sha }}
 
       - name: Migrations
         run:  |
-          kamal build pull --version=${{ github.sha }}
-          kamal app exec --version=${{ github.sha }} 'java -jar standalone.jar migrations'
+          ./kamal.sh build pull --version=${{ github.sha }}
+          ./kamal.sh app exec --version=${{ github.sha }} 'java -jar standalone.jar migrations'
 
       - name: Deploy
-        run: kamal deploy --skip-push --version=${{ github.sha }}
+        run: ./kamal.sh deploy --skip-push --version=${{ github.sha }}
 
       - name: Kamal Release
         if: ${{ cancelled() }}
-        run: kamal lock release
+        run: ./kamal.sh lock release
