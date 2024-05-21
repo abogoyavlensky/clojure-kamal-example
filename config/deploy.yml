@@ -15,7 +15,8 @@ servers:
 
 registry:
   server: ghcr.io
-  username: <%= ENV['REGISTRY_USERNAME'] %>
+  username:
+    - REGISTRY_USERNAME
   password:
     - REGISTRY_PASSWORD
 
