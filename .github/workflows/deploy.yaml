@@ -7,8 +7,8 @@ on:
 
 
 jobs:
-#  checks:
-#    uses: ./.github/workflows/checks.yaml
+  checks:
+    uses: ./.github/workflows/checks.yaml
 
   deploy:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
       contents: read
       packages: write
     timeout-minutes: 20
-#    needs: [ checks ]
+    needs: [ checks ]
     steps:
       - uses: actions/checkout@v4
       - uses: webfactory/ssh-agent@v0.9.0
