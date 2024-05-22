@@ -51,6 +51,11 @@ tasks:
       - task: outdated-check
         vars: { CLI_ARGS: '--upgrade --force' }
 
+  repl:
+    desc: Run built-in Clojure repl
+    cmds:
+      - clojure -A:dev:cljs:test
+
   # Frontend commands
   shadow:
     desc: Run shadow-cljs commands
@@ -96,7 +101,7 @@ tasks:
   up:
     desc: Run docker services for local development
     cmds:
-      - docker compose up -d db-local db-test
+      - docker compose up -d db-local
 
   migrations:
     desc: Manage db migrations

@@ -94,7 +94,7 @@ Let's check an example:
 SERVER_IP=192.168.0.1
 REGISTRY_USERNAME=your-username
 REGISTRY_PASSWORD=secret-registry-password
-TRAEFIK_ACME_EMAIL=user@test.com
+TRAEFIK_ACME_EMAIL=your_email@example.com
 APP_DOMAIN=app.domain.com
 
 # App
@@ -177,3 +177,61 @@ TRAEFIK_ACME_EMAIL
 #### Notes
 
 - `SSH_PRIVATE_KEY` - a new SSH private key **without password** that you created and added public part of it to servers's `~/.ssh/authorized_keys` to authorize from CI-worker.
+
+To generate SSH keys, run:
+
+```shell
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+## Development
+
+### System deps
+Install [mise-en-place](https://mise.jdx.dev/getting-started.html#quickstart) (or [asdf](https://asdf-vm.com/guide/getting-started.html)), 
+then to install system deps run:
+
+```shell
+mise install
+```
+
+### Frontend
+
+Run frontend in watch mode (js and css):
+```shell
+task ui
+```
+
+### Backend
+
+Create file `.env.local` with local database credentials, for example:
+
+```shell
+POSTGRES_DB=demo
+POSTGRES_USER=demo
+POSTGRES_PASSWORD=demo
+DATABASE_URL=jdbc:postgresql://localhost:5432/demo?user=demo&password=demo
+````
+
+Run database for local development:
+
+```shell
+task up
+```
+
+Start REPL:
+
+```shell
+task repl
+```
+
+Run backend in the REPL:
+
+```clojure
+(reset)
+```
+
+## License
+
+Copyright © 2024 Andrey Bogoyavlenskiy
+
+Distributed under the MIT License.
