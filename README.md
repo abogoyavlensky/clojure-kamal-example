@@ -25,6 +25,11 @@ Other tools:
 - Taskfile
 - Testcontainers
 
+## The app
+
+It's a setup for Clojure/Script application with an example API route for getting 
+movies list and showing them on the main page.
+
 ## Deploy: TL;DR
 
 First deploy: 
@@ -65,7 +70,7 @@ so in this case you don't need to install anything else to deploy your app.
 and use just `kamal` command instead of dockerized version:_
 
 Install [mise-en-place](https://mise.jdx.dev/getting-started.html#quickstart) (or [asdf](https://asdf-vm.com/guide/getting-started.html)), 
-add `ruby 3.3.0` to `.tool-versions` file and run `mise install ruby`:
+add `ruby 3.3.0` to `.tool-versions` file and run:
 
 ```shell
 brew install libyaml  # or on Ubuntu: `sudo apt-get install libyaml-dev` 
@@ -212,6 +217,8 @@ POSTGRES_PASSWORD=demo
 DATABASE_URL=jdbc:postgresql://localhost:5432/demo?user=demo&password=demo
 ````
 
+⚠️ Do not include file `.env.local` to git repository!
+
 Run database for local development:
 
 ```shell
@@ -228,6 +235,12 @@ Run backend in the REPL:
 
 ```clojure
 (reset)
+```
+
+Run tests:
+
+```shell
+task test
 ```
 
 ## License
