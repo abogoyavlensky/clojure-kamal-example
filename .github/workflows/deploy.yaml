@@ -48,21 +48,21 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: ./kamal.sh envify
+        run: kamal envify
 
       - name: Build and push
         run: |
-          ./kamal.sh registry login
-          ./kamal.sh build push --version=${{ github.sha }}
+          kamal registry login
+          kamal build push --version=${{ github.sha }}
 
       - name: Migrations
         run:  |
-          ./kamal.sh build pull --version=${{ github.sha }}
-          ./kamal.sh app exec --version=${{ github.sha }} 'java -jar standalone.jar migrations'
+          kamal build pull --version=${{ github.sha }}
+          kamal app exec --version=${{ github.sha }} 'java -jar standalone.jar migrations'
 
       - name: Deploy
-        run: ./kamal.sh deploy --skip-push --version=${{ github.sha }}
+        run: kamal deploy --skip-push --version=${{ github.sha }}
 
       - name: Kamal Release
         if: ${{ cancelled() }}
-        run: ./kamal.sh lock release
+        run: kamal lock release
