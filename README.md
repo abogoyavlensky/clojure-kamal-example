@@ -1,4 +1,4 @@
-# Full-stack Clojure/Script setup with deployment using Kamal
+# Full-stack Clojure/Script app with deployment using Kamal
 
 This project aims to show a setup of Clojure/Script web-application that
 uses PostgreSQL as a database. Also, there is a config for
@@ -25,12 +25,28 @@ Other tools:
 - Taskfile
 - Testcontainers
 
-## Deploy
+## Deploy: TL;DR
 
-### TL;DR
+First deploy: 
 
-TODO: quick way to deploy
+```shell
+./kamal.sh envify --skip-push  # then fill all variables in newly created .env file
+./kamal.sh server bootstrap
+ssh root@192.168.0.1 'docker network create traefik'
+ssh root@192.168.0.1 'mkdir -p /root/letsencrypt && touch /root/letsencrypt/acme.json && chmod 600 /root/letsencrypt/acme.json'
+./kamal.sh setup
+./kamal.sh app exec 'java -jar standalone.jar migrations'
+```
 
+Then any subsequent deploy from local machine:
+
+```shell
+./kamal.sh deploy
+```
+
+or push to `master`-branch.
+
+## Deploy: step-by-step
 
 ### Requirements
 
@@ -125,7 +141,7 @@ Set up Traefik, database, environment variables and run app on a server:
 The app is deployed on the server, but it is not fully functioning yet, we need to run database migrations:
 
 ```shell
-kamal app exec 'java -jar standalone.jar migrations'
+./kamal.sh app exec 'java -jar standalone.jar migrations'
 ```
 
 Now, we the application fully deployed on the server.
@@ -135,7 +151,7 @@ Now, we the application fully deployed on the server.
 Then, next time for deploy the app from local machine, run:
 
 ```shell
-kamal deploy
+./kamal.sh deploy
 ```
 
 Or just push to the master, there is a GitHub Actions pipeline that does 
@@ -143,6 +159,21 @@ the deployment automatically `.github/workflows/deploy.yaml`.
 
 ### Setup CI for deployment
 
-For CI setup you need to add following environment variables
+For CI setup you need to add following environment variables as secrets for Actions. 
+In GitHub UI of the repository navigate to `Settings -> Secrets and variables -> Actions`.
+Then add variables with the same values you added to local `.env` file:
 
-TODO:...
+```shell
+APP_DOMAIN
+DATABASE_URL
+POSTGRES_DB
+POSTGRES_PASSWORD
+POSTGRES_USER
+SERVER_IP
+SSH_PRIVATE_KEY
+TRAEFIK_ACME_EMAIL
+```
+
+#### Notes
+
+- `SSH_PRIVATE_KEY` - a new SSH private key **without password** that you created and added public part of it to servers's `~/.ssh/authorized_keys` to authorize from CI-worker.
