@@ -51,6 +51,13 @@ tasks:
       - task: outdated-check
         vars: { CLI_ARGS: '--upgrade --force' }
 
+  check:
+    desc: Run lint, fmt and tests. Intended to use locally
+    cmds:
+      - task: lint
+      - task: fmt
+      - task: test
+
   repl:
     desc: Run built-in Clojure repl
     cmds:

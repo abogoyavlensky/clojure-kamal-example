@@ -245,6 +245,21 @@ Run tests:
 task test
 ```
 
+Manage database migrations:
+
+```shell
+task migrations -- list
+task migrations -- make
+task migrations -- migrate
+task migrations -- explain :number 1
+```
+
+Print all available commands:
+
+```shell
+task -l
+```
+
 ## License
 
 Copyright © 2024 Andrey Bogoyavlenskiy

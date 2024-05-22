@@ -1,8 +1,9 @@
 (ns user
   (:require [clojure.tools.namespace.repl :as repl]
+            [clojure.test :as test]
             [integrant.repl :as ig-repl]
-            [api.util.system :as system-util]
-            [clojure.test :as test]))
+            [automigrate.core :as automigrate]
+            [api.util.system :as system-util]))
 
 
 (repl/set-refresh-dirs "dev" "src" "test")
@@ -36,3 +37,11 @@
   []
   (reset)
   (test/run-all-tests #"api.*-test"))
+
+(comment
+  ; Manage migrations from REPL
+  (automigrate/list {})
+  (automigrate/make {})
+  (automigrate/migrate {})
+  (automigrate/migrate {:number 0})
+  (automigrate/explain {:number 1 :direction :backward}))

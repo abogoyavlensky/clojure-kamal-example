@@ -1,5 +1,5 @@
 {:api.db/db {:options {:jdbc-url #profile {:default #env DATABASE_URL
-                                           :test "jdbc:tc:postgresql:15.2-alpine3.17:///databasename?TC_DAEMON=true"}}}
+                                           :test "jdbc:tc:postgresql:15.2-alpine3.17:///testdb?TC_DAEMON=true"}}}
 
  :api.handler/handler {:options {:reloaded? #profile {:default false
                                                       :dev true}

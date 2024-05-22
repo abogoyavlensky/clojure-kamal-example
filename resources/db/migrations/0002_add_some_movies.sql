@@ -1,4 +1,6 @@
 -- FORWARD
+BEGIN;
+
 INSERT INTO director (name) VALUES
 ('Christopher Nolan'),
 ('Steven Spielberg'),
@@ -23,4 +25,13 @@ INSERT INTO movie (title, year, director_id) VALUES
 ('A Clockwork Orange', 1971, 9), -- Stanley Kubrick
 ('The Lord of the Rings: The Fellowship of the Ring', 2001, 10); -- Peter Jackson
 
+COMMIT;
+
 -- BACKWARD
+
+BEGIN;
+
+TRUNCATE director CASCADE;
+TRUNCATE movie CASCADE;
+
+COMMIT;
