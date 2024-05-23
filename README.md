@@ -1,7 +1,7 @@
 # Full-stack Clojure/Script app with deployment using Kamal
 
 This project demonstrates the setup of a Clojure/Script web application that uses PostgreSQL as its database.
-It also includes configuration for deploying the app with Kamal on **a single server**.
+It also includes configuration for deploying the app with [Kamal](https://kamal-deploy.org/) on **a single server**.
 
 Key backend libs:
 - Integrant
