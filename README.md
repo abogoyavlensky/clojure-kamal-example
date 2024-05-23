@@ -31,12 +31,12 @@ a list of movies and displaying them on the main page.
 
 ![App main page](/docs/app_page.png)
 
-## Deploy: TL;DR
+## Deploy: summary
 
-First deployment: 
+You need to have Docker installed, then run first deployment: 
 
 ```shell
-./kamal.sh envify --skip-push  # then fill all variables in the newly created `.env` file
+./kamal.sh envify --skip-push  # :warning: then fill all variables in the newly created `.env` file
 ./kamal.sh server bootstrap
 ssh root@192.168.0.1 'docker network create traefik'
 ssh root@192.168.0.1 'mkdir -p /root/letsencrypt && touch /root/letsencrypt/acme.json && chmod 600 /root/letsencrypt/acme.json'
