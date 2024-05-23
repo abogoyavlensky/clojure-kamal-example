@@ -33,7 +33,9 @@ a list of movies and displaying them on the main page.
 
 ## Deploy: summary
 
-You need to have Docker installed, then run first deployment: 
+You need to have Docker installed on your local machine.
+Additionally, you need an empty server that you can access using SSH keys.
+First deployment: 
 
 ```shell
 ./kamal.sh envify --skip-push  # :warning: then fill all variables in the newly created `.env` file
