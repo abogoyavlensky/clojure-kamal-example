@@ -20,12 +20,12 @@ registry:
   password:
     - REGISTRY_PASSWORD
 
-builder:
-  remote:
-    arch: amd64
-  cache:
-    type: gha
-    options: mode=max
+#builder:
+#  remote:
+#    arch: amd64
+#  cache:
+#    type: gha
+#    options: mode=max
 
 healthcheck:
   path: /health
