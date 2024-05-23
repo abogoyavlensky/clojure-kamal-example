@@ -256,8 +256,25 @@ task migrations -- explain :number 1
 
 Print all available commands:
 
-```shell
+```text
 task -l
+
+task: Available tasks for this project:
+* build:                Build uberjar
+* check:                Run lint, fmt and tests. Intended to use locally
+* css-prod:             Build css in prod mode
+* deps:                 Install all dev deps
+* fmt:                  Fix code formatting
+* fmt-check:            Check code formatting
+* lint:                 Linting project's code
+* lint-init:            Linting project's classpath
+* migrations:           Manage db migrations
+* outdated:             Upgrade outdated Clojure deps versions
+* outdated-check:       Check outdated deps versions
+* repl:                 Run built-in Clojure repl
+* test:                 Run tests
+* ui:                   Build js and css in watch mode for local development
+* up:                   Run docker services for local development
 ```
 
 ## License
