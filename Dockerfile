@@ -1,4 +1,4 @@
-FROM clojure:temurin-21-tools-deps-1.11.3.1456-alpine
+FROM --platform=linux/amd64 clojure:temurin-21-tools-deps-1.11.3.1456-alpine
 #FROM eclipse-temurin:21.0.2_13-jre-alpine AS build
 #FROM eclipse-temurin:21.0.2_13-jre-jammy AS build
 
