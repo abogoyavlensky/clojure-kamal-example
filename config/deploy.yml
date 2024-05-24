@@ -21,8 +21,7 @@ registry:
     - REGISTRY_PASSWORD
 
 builder:
-  remote:
-    arch: amd64
+  multiarch: false
   cache:
     type: gha
     options: mode=max
