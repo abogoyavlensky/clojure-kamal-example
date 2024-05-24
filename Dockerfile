@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 clojure:temurin-21-tools-deps-1.11.3.1456-alpine
+FROM --platform=linux/amd64 clojure:temurin-21-tools-deps-1.11.3.1456-alpine AS build
 
 WORKDIR /app
 
