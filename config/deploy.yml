@@ -20,7 +20,8 @@ registry:
   password:
     - REGISTRY_PASSWORD
 
-#builder:
+builder:
+  multiarch: false
 #  remote:
 #    arch: amd64
 #  cache:
