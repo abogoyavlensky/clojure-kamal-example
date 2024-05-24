@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install npm
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.20/community" >> /etc/apk/repositories
-RUN apk add --update --no-cache npm=10.8.0-r0
+RUN apk add --update --no-cache curl npm=10.8.0-r0
 
 ## Node deps
 COPY package.json package-lock.json /app/
