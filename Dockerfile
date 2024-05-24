@@ -1,4 +1,4 @@
-FROM alpine:3.20.0
+FROM clojure:temurin-21-tools-deps-1.11.3.1456-alpine
 #FROM eclipse-temurin:21.0.2_13-jre-alpine AS build
 #FROM eclipse-temurin:21.0.2_13-jre-jammy AS build
 
@@ -6,7 +6,7 @@ WORKDIR /app
 
 #RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/main" >> /etc/apk/repositories
 
-RUN apk add --update --no-cache nodejs=16.16.0-r0
+# RUN apk add --update --no-cache nodejs=16.16.0-r0
 
 ## System deps
 #ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:$PATH"
