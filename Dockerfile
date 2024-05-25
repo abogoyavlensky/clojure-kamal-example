@@ -29,4 +29,4 @@ COPY --from=build /app/target/standalone.jar /app/standalone.jar
 RUN apk add --no-cache curl
 
 EXPOSE 80
-CMD ["java", "-Xms64m", "-Xmx256m", "-jar", "standalone.jar"]
+CMD ["java", "-Xmx256m", "-jar", "standalone.jar"]
