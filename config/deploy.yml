@@ -50,8 +50,6 @@ accessories:
    directories:
      - clojure_kamal_example_postgres_data:/var/lib/postgresql/data
    options:
-     publish:
-       - "6433:5432"
      network: "traefik"
 
 # Traefik
