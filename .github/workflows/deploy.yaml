@@ -19,6 +19,7 @@ jobs:
     needs: [ checks ]
     steps:
       - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -28,11 +29,6 @@ jobs:
 
       - name: Expose GitHub Runtime for cache
         uses: crazy-max/ghaction-github-runtime@v3
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.0
-          bundler-cache: true
 
       - name: Install kamal
         run: gem install kamal -v 1.5.2

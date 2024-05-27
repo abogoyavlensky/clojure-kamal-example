@@ -26,54 +26,26 @@ Other tools:
 
 ## The app
 
-This setup provides a Clojure/Script web application with an example API route for fetching 
-a list of movies and displaying them on the main page.
+This setup provides a Clojure/Script web application with an example API route for demonstration purposes 
+with fetching a list of movies and displaying them on the main page.
 
 ![App main page](/docs/app_page.png)
 
 ## Deploy: summary
 
-You need to have Docker installed on your local machine.
-Additionally, you need an empty server that you can access using SSH keys.
-First deployment: 
+### Pre-requisites
 
-```shell
-./kamal.sh envify --skip-push  # :warning: then fill all variables in the newly created `.env` file
-./kamal.sh server bootstrap
-ssh root@192.168.0.1 'docker network create traefik'
-ssh root@192.168.0.1 'mkdir -p /root/letsencrypt && touch /root/letsencrypt/acme.json && chmod 600 /root/letsencrypt/acme.json'
-./kamal.sh setup
-./kamal.sh app exec 'java -jar standalone.jar migrations'
-```
+- Docker [installed](https://docs.docker.com/engine/install/) on local machine
+- Server with public IP
+- Domain pointed out to server
+- SSH connection from local machine to the server with SSH-keys
+- Open 443 and 80 ports on server
+- (optional) Configure firewall
 
-For subsequent deployments from the local machine:
+#### Install Kamal locally
 
-```shell
-./kamal.sh deploy
-```
-
-or push to the master branch.
-
-## Deploy: step-by-step
-
-### Requirements
-
-Ensure you have Docker [installed](https://docs.docker.com/engine/install/) on your machine.
-
-We will use a predefined command to run a dockerized version of Kamal,
-so you don’t need to install anything else to deploy your app.
-
-```shell
-./kamal.sh version
-```
-
----
-
-:information_source: **Note**: _Alternatively you can install Kamal as Ruby gem 
-and use the `kamal` command instead of dockerized version:_
-
-Install [mise-en-place](https://mise.jdx.dev/getting-started.html#quickstart) (or [asdf](https://asdf-vm.com/guide/getting-started.html)), 
-add `ruby 3.3.0` to `.tool-versions` file and run:
+Install [mise-en-place](https://mise.jdx.dev/getting-started.html#quickstart) (or [asdf](https://asdf-vm.com/guide/getting-started.html)),
+and run:
 
 ```shell
 brew install libyaml  # or on Ubuntu: `sudo apt-get install libyaml-dev` 
@@ -82,6 +54,43 @@ gem install kamal -v 1.5.2
 kamal version
 ```
 
+### First deployment
+
+```shell
+kamal envify --skip-push  # :warning: then fill all variables in the newly created `.env` file
+kamal server bootstrap
+ssh root@192.168.0.1 'docker network create traefik'
+ssh root@192.168.0.1 'mkdir -p /root/letsencrypt && touch /root/letsencrypt/acme.json && chmod 600 /root/letsencrypt/acme.json'
+kamal setup
+kamal app exec 'java -jar standalone.jar migrations'
+```
+
+### Regular deployment
+
+```shell
+kamal deploy
+```
+
+or push to the master branch.
+
+## Deploy: step-by-step
+
+Assume that you have Kamal installed and other requirements 
+from the "Pre-requisites" section above.
+
+---
+:information_source: **Note**: _Alternatively you can use dockerized version of
+Kamal and use the `./kamal.sh` predefined command instead of Ruby gem version:_
+
+```shell
+./kamla.sh version
+```
+
+It mostly works for initial server setup, but some management commands don't work properly. 
+For instance, `./kamal.sh app logs -f` or `./kamal.sh build push`. 
+
+---
+
 ### Initial server setup
 
 #### Setup environment variables
@@ -89,7 +98,7 @@ kamal version
 Run command `envify` to create a `.env` with all required empty variables: 
 
 ```shell
-./kamal.sh envify --skip-push
+kamal envify --skip-push
 ```
 
 _The `--skip-push` parameter prevents the `.env` file from being pushed to the server._
@@ -130,7 +139,7 @@ Notes:
 Install Docker on a server:
 
 ```shell
-./kamal.sh server bootstrap
+kamal server bootstrap
 ```
 
 Create a Docker network for access to the database container from the app by container name
@@ -144,13 +153,13 @@ ssh root@192.168.0.1 'mkdir -p /root/letsencrypt && touch /root/letsencrypt/acme
 Set up Traefik, the database, environment variables and run app on a server:
 
 ```shell
-./kamal.sh setup
+kamal setup
 ```
 
 The app is deployed on the server, but it is not fully functional yet. You need to run database migrations:
 
 ```shell
-./kamal.sh app exec 'java -jar standalone.jar migrations'
+kamal app exec 'java -jar standalone.jar migrations'
 ```
 
 Now, the application is fully deployed on the server.
@@ -160,7 +169,7 @@ Now, the application is fully deployed on the server.
 For subsequent deployments from the local machine, run:
 
 ```shell
-./kamal.sh deploy
+kamal deploy
 ```
 
 Or just push to the master branch, there is a GitHub Actions pipeline that does 
