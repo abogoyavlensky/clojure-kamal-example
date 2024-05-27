@@ -1,6 +1,6 @@
 # Full-stack Clojure/Script app with deployment using Kamal
 
-This project demonstrates the setup of a Clojure/Script web application that uses PostgreSQL as its database.
+This project demonstrates the setup of a Clojure/Script web application that uses PostgreSQL as a database.
 It also includes configuration for deploying the app with [Kamal](https://kamal-deploy.org/) on **a single server**.
 
 Key backend libs:
@@ -83,7 +83,7 @@ from the "Pre-requisites" section above.
 Kamal and use the `./kamal.sh` predefined command instead of Ruby gem version:_
 
 ```shell
-./kamla.sh version
+./kamal.sh version
 ```
 
 _It mostly works for initial server setup, but some management commands don't work properly. 
