@@ -86,8 +86,8 @@ Kamal and use the `./kamal.sh` predefined command instead of Ruby gem version:_
 ./kamla.sh version
 ```
 
-It mostly works for initial server setup, but some management commands don't work properly. 
-For instance, `./kamal.sh app logs -f` or `./kamal.sh build push`. 
+_It mostly works for initial server setup, but some management commands don't work properly. 
+For instance, `./kamal.sh app logs -f` or `./kamal.sh build push`._ 
 
 ---
 
