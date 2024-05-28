@@ -29,7 +29,6 @@ builder:
 healthcheck:
   path: /health
   port: 80
-  exposed_port: 4001
   max_attempts: 15
   interval: 30s
 
