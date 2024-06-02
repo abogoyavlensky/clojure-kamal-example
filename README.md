@@ -288,6 +288,10 @@ task: Available tasks for this project:
 * up:                   Run docker services for local development
 ```
 
+## Resources
+
+- [Deploying a full-stack Clojure app with Kamal on a single server](https://bogoyavlensky.com/blog/deploying-full-stack-clojure-app-with-kamal/)
+
 ## License
 
 Copyright © 2024 Andrey Bogoyavlenskiy
